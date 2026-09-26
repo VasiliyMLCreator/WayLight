@@ -12,8 +12,19 @@ import { SearchIcon } from '../../../shared/ui/icons/SearchIcon'
 import { MoreIcon } from '../../../shared/ui/icons/MoreIcon'
 import { PinIcon } from '../../../shared/ui/icons/PinIcon'
 import { TrashIcon } from '../../../shared/ui/icons/TrashIcon'
+import { MemoryIcon } from '../../../shared/ui/icons/MemoryIcon'
+import { InstructionsIcon } from '../../../shared/ui/icons/InstructionsIcon'
+import { DocumentIcon } from '../../../shared/ui/icons/DocumentIcon'
+import { LinkIcon } from '../../../shared/ui/icons/LinkIcon'
 import { IconButton } from '../../../shared/ui/IconButton/IconButton'
 import { siteContent } from '../../../shared/config/site-content'
+
+const memoryCategories = [
+  { id: 'memory', label: 'Память', Icon: MemoryIcon },
+  { id: 'instructions', label: 'Инструкции', Icon: InstructionsIcon },
+  { id: 'documents', label: 'Документы', Icon: DocumentIcon },
+  { id: 'links', label: 'Ссылки', Icon: LinkIcon },
+]
 
 export function ChatWorkspace({ activeChatId, chats, onAppendMessage, onDeleteChat, onSelectChat, onToggleChatPinned, onUpdateMessage, userName }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
@@ -115,61 +126,75 @@ export function ChatWorkspace({ activeChatId, chats, onAppendMessage, onDeleteCh
             </IconButton>
           </div>
         </div>
-        <div className="chat-history">
+        <div className={`chat-history${isMemoryMode ? ' chat-history--memory' : ''}`}>
           <p className="chat-history-label">{isMemoryMode ? 'Память' : 'Чаты'}</p>
-          <form
-            className="chat-search"
-            onSubmit={(event) => {
-              event.preventDefault()
-              if (searchMode === 'ai') setSubmittedAiSearch(chatSearch.trim())
-            }}
-          >
-            <button
-              className="chat-search-mode-trigger"
-              type="button"
-              aria-label={`Тип поиска: ${searchMode === 'classic' ? 'Классика' : 'AI'}`}
-              aria-expanded={isSearchModeOpen}
-              onClick={() => setIsSearchModeOpen((open) => !open)}
-            >
-              <span>{searchMode === 'classic' ? 'Классика' : 'AI'}</span>
-              <SearchIcon />
-            </button>
-            <input
-              type="search"
-              value={chatSearch}
-              onChange={(event) => setChatSearch(event.target.value)}
-              placeholder="Поиск по чатам"
-              aria-label="Поиск по истории чатов"
-            />
-            {searchMode === 'ai' && (
-              <button className="chat-search-submit" type="submit" disabled={!chatSearch.trim()} aria-label="Отправить запрос">
-                <ArrowIcon />
-              </button>
-            )}
-            {isSearchModeOpen && (
-              <div className="chat-search-mode-menu" role="group" aria-label="Тип поиска">
-                {[
-                  { id: 'classic', label: 'Классика' },
-                  { id: 'ai', label: 'AI' },
-                ].map((mode) => (
-                  <button
-                    className="chat-search-mode-option"
-                    type="button"
-                    key={mode.id}
-                    onClick={() => {
-                      setSearchMode(mode.id)
-                      setIsSearchModeOpen(false)
-                    }}
-                  >
-                    <span>{mode.label}</span>
-                    <SearchIcon />
-                    {searchMode === mode.id && <CheckIcon />}
+          {!isMemoryMode && (
+            <>
+              <form
+                className="chat-search"
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  if (searchMode === 'ai') setSubmittedAiSearch(chatSearch.trim())
+                }}
+              >
+                <button
+                  className="chat-search-mode-trigger"
+                  type="button"
+                  aria-label={`Тип поиска: ${searchMode === 'classic' ? 'Классика' : 'AI'}`}
+                  aria-expanded={isSearchModeOpen}
+                  onClick={() => setIsSearchModeOpen((open) => !open)}
+                >
+                  <span>{searchMode === 'classic' ? 'Классика' : 'AI'}</span>
+                  <SearchIcon />
+                </button>
+                <input
+                  type="search"
+                  value={chatSearch}
+                  onChange={(event) => setChatSearch(event.target.value)}
+                  placeholder="Поиск по чатам"
+                  aria-label="Поиск по истории чатов"
+                />
+                {searchMode === 'ai' && (
+                  <button className="chat-search-submit" type="submit" disabled={!chatSearch.trim()} aria-label="Отправить запрос">
+                    <ArrowIcon />
                   </button>
-                ))}
-              </div>
-            )}
-          </form>
-          <div className="chat-history-divider" aria-hidden="true" />
+                )}
+                {isSearchModeOpen && (
+                  <div className="chat-search-mode-menu" role="group" aria-label="Тип поиска">
+                    {[
+                      { id: 'classic', label: 'Классика' },
+                      { id: 'ai', label: 'AI' },
+                    ].map((mode) => (
+                      <button
+                        className="chat-search-mode-option"
+                        type="button"
+                        key={mode.id}
+                        onClick={() => {
+                          setSearchMode(mode.id)
+                          setIsSearchModeOpen(false)
+                        }}
+                      >
+                        <span>{mode.label}</span>
+                        <SearchIcon />
+                        {searchMode === mode.id && <CheckIcon />}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </form>
+              <div className="chat-history-divider" aria-hidden="true" />
+            </>
+          )}
+          {isMemoryMode && (
+            <div className="memory-category-grid">
+              {memoryCategories.map(({ id, label, Icon }) => (
+                <button className={`memory-category-card memory-category-card--${id}`} type="button" key={id}>
+                  <Icon />
+                  <span>{label}</span>
+                </button>
+              ))}
+            </div>
+          )}
           <div className={`chat-history-list${isMemoryMode ? ' chat-history-list--hidden' : ''}`}>
             {visibleChats.map((chat) => {
               const isMenuOpen = openChatMenuId === chat.id
