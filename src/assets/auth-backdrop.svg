@@ -1,0 +1,19 @@
+<svg width="700" height="760" viewBox="0 0 700 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="760" fill="#181917"/>
+  <circle cx="588" cy="168" r="220" fill="url(#a)" fill-opacity=".62"/>
+  <circle cx="86" cy="632" r="247" fill="url(#b)" fill-opacity=".62"/>
+  <path d="M-30 667c141-102 148-260 282-354 105-74 198-59 284-181" stroke="#EFF1EC" stroke-opacity=".2" stroke-width="1.2"/>
+  <path d="M-32 718c197-83 219-252 385-336 120-61 231-68 364-221" stroke="#B9BEB8" stroke-opacity=".17" stroke-width="1.5"/>
+  <path d="M89 780c84-150 159-239 283-288 108-43 181-123 273-270" stroke="#F4F5F1" stroke-opacity=".14" stroke-width="1.2"/>
+  <path d="M-18 351c118 4 223-58 299-158 78-104 178-130 294-91 64 21 125 1 180-57" stroke="#E9ECE6" stroke-opacity=".1"/>
+  <g stroke="#E8EBE5" stroke-opacity=".12">
+    <circle cx="553" cy="490" r="103"/><circle cx="553" cy="490" r="142"/><circle cx="553" cy="490" r="184"/>
+  </g>
+  <g fill="#F4F5F1" fill-opacity=".26">
+    <circle cx="137" cy="496" r="3"/><circle cx="242" cy="362" r="2"/><circle cx="353" cy="277" r="3"/><circle cx="468" cy="202" r="2"/><circle cx="565" cy="111" r="3"/>
+  </g>
+  <defs>
+    <radialGradient id="a" cx="0" cy="0" r="1" gradientTransform="rotate(132 265 104) scale(291)" gradientUnits="userSpaceOnUse"><stop stop-color="#707670"/><stop offset="1" stop-color="#333734" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b" cx="0" cy="0" r="1" gradientTransform="rotate(-46 531 279) scale(328)" gradientUnits="userSpaceOnUse"><stop stop-color="#575D58"/><stop offset="1" stop-color="#252925" stop-opacity="0"/></radialGradient>
+  </defs>
+</svg>
